@@ -5,6 +5,7 @@ import Login from "./Pages/Auth/Login";
 import NotFound from "./Pages/Common/NotFound";
 import Home from './Pages/Common/Home';
 import Register from './Pages/Auth/Register';
+import ForgotPassword from './Pages/Auth/ForgotPassword';
 
 const router = () => {
   return (
@@ -14,6 +15,7 @@ const router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
