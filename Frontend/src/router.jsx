@@ -6,6 +6,9 @@ import NotFound from "./Pages/Common/NotFound";
 import Home from './Pages/Common/Home';
 import Register from './Pages/Auth/Register';
 import ForgotPassword from './Pages/Auth/ForgotPassword';
+import ItemList from "./Pages/Items/ItemList";
+import AddItem from "./Pages/Items/AddItem";
+import EditItem from "./Pages/Items/EditItem";
 
 const router = () => {
   return (
@@ -16,6 +19,9 @@ const router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path="/items" element={<ItemList />} />
+        <Route path="/items/add" element={<AddItem />} />
+        <Route path="/items/edit/:id" element={<EditItem />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
