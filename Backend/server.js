@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import loginRouter from './routes/login.js';
 import itemRouter from './routes/item.js';
 import storeRouter from './routes/store.js';
+//import requiredRouter from './routes/required_qty.js';
+import signinRouter from './routes/signin.js';
 
 import { authenticateToken } from './middleware/auth.js';
 
@@ -19,8 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/item', authenticateToken, itemRouter);  // used for protected api call
 app.use('/store', authenticateToken, storeRouter);
+//app.use('/reqqty', authenticateToken, requiredRouter);
 
 app.use("/login",loginRouter);  // used for unprotected api call
+app.use("/signin",signinRouter);
 
 app.get('/health', (req, res) => {
   res.json({

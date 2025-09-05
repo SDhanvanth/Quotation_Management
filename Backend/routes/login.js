@@ -20,8 +20,9 @@ router.post("/", async(req,res)=>{
     }
     if (req.body.password === validate[0].password){
         const [user] = await pool.execute('SELECT user_id, username, type_id FROM user where username = ? and isActive = 1',[req.body.username]);
+        //console.log(user[0].type_id);
         const token = jwt.sign(user[0], SECRET_KEY, { expiresIn: '1h' });
-        return res.json({ success: true, token });
+        return res.json({ success: true, token, user_type: user[0].type_id});
     }  
     res.status(401).json({ success: false, message: "Invalid credentials" });
 });
