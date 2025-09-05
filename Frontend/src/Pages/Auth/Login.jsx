@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react';
+import { useState } from "react";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -11,54 +10,57 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login Data:", formData);
-    // 🔹 Call backend API here: POST /auth/login
+    // TODO: Call backend API here
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form 
-        onSubmit={handleSubmit} 
-        className="bg-white shadow-lg rounded-2xl p-8 w-96"
-      >
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-          Login
-        </h2>
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-96">
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+          >
+            Login
+          </button>
+        </form>
 
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Username
-        </label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your username"
-          required
-        />
-
-        <label className="block mb-2 text-sm font-medium text-gray-700">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Enter your password"
-          required
-        />
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Login
-        </button>
-      </form>
+        {/* Links below the form */}
+        <div className="text-sm text-gray-600 mt-4 text-center space-y-2">
+          <p>
+            <a href="/forgot-password" className="text-blue-600 hover:underline">
+              Forgot Password?
+            </a>
+          </p>
+          <p>
+            Don’t have an account?{" "}
+            <a href="/register" className="text-blue-600 hover:underline">
+              Register
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

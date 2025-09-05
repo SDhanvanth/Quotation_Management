@@ -17,9 +17,6 @@ const Navbar = () => {
         <li>
           <Link to="/register" className="hover:text-gray-200">Register</Link>
         </li>
-        <li>
-          <Link to="/profile" className="hover:text-gray-200">Profile</Link>
-        </li>
       </ul>
     </nav>
   )
