@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "13306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 15
+      timeout: 5s
+
+  backend:
+    build: ./Backend
+    container_name: backend_service
+    restart: always
+    env_file:
+      - ./Backend/.env
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_NAME: mydb
+      NODE_ENV: development
+      FRONTEND_URL: http://frontend:80
+    command: >
+      sh -c "until nc -z mysql 3306; do echo '⏳ Waiting for MySQL...'; sleep 2; done &&
+           echo '✅ MySQL is ready, starting backend...' &&
+           npm start"
+
+  frontend:
+    build: ./Frontend
+    container_name: frontend_service
+    restart: always
+    env_file:
+      - ./Frontend/.env
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
